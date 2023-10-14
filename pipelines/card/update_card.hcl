@@ -39,10 +39,9 @@ pipeline "update_card" {
   }
 
   step "http" "update_card" {
-    title  = "Update a Card"
-    method = "put"
-    url    = "https://api.trello.com/1/cards/${param.card_id}?key=${param.api_key}&token=${param.token}"
-    // if contains(keys(local.create_card_query_params), name) && value != null
+    title        = "Update a Card"
+    method       = "put"
+    url          = "https://api.trello.com/1/cards/${param.card_id}?key=${param.api_key}&token=${param.token}"
     request_body = jsonencode({ for name, value in param : local.update_card_query_params[name] => value if contains(keys(local.update_card_query_params), name) && value != null })
   }
 
