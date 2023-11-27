@@ -1,18 +1,17 @@
-// usage: flowpipe pipeline run create_board --pipeline-arg board_name="BOARD_NAME"
 pipeline "create_board" {
-  title       = "Create a Board"
+  title       = "Create Board"
   description = "Create a new board."
 
   param "api_key" {
     type        = string
+    description = local.api_key_param_description
     default     = var.api_key
-    description = "The Trello API key."
   }
 
   param "token" {
     type        = string
+    description = local.token_param_description
     default     = var.token
-    description = "The Trello token."
   }
 
   param "board_name" {
@@ -21,13 +20,12 @@ pipeline "create_board" {
   }
 
   step "http" "create_board" {
-    title  = "Create a Board"
     method = "post"
     url    = "https://api.trello.com/1/boards?name=${urlencode(param.board_name)}&key=${param.api_key}&token=${param.token}"
   }
 
   output "board" {
+    description = "The new board details."
     value       = step.http.create_board.response_body
-    description = "The board object."
   }
 }

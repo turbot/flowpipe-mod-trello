@@ -1,18 +1,17 @@
-// usage: flowpipe pipeline run update_card --pipeline-arg card_id="CARD_ID" --pipeline-arg card_name="CARD_NAME"
 pipeline "update_card" {
-  title       = "Update a Card"
+  title       = "Update Card"
   description = "Update a card."
 
   param "api_key" {
     type        = string
+    description = local.api_key_param_description
     default     = var.api_key
-    description = "The Trello API key."
   }
 
   param "token" {
     type        = string
+    description = local.token_param_description
     default     = var.token
-    description = "The Trello token."
   }
 
   param "card_id" {
@@ -22,31 +21,30 @@ pipeline "update_card" {
 
   param "card_name" {
     type        = string
-    optional    = true
     description = "The new name for the card."
+    optional    = true
   }
 
   param "card_description" {
     type        = string
-    optional    = true
     description = "The new description for the card."
+    optional    = true
   }
 
   param "close" {
     type        = string
-    optional    = true
     description = "Whether the card should be archived (closed: true)."
+    optional    = true
   }
 
   step "http" "update_card" {
-    title        = "Update a Card"
     method       = "put"
     url          = "https://api.trello.com/1/cards/${param.card_id}?key=${param.api_key}&token=${param.token}"
     request_body = jsonencode({ for name, value in param : local.update_card_query_params[name] => value if contains(keys(local.update_card_query_params), name) && value != null })
   }
 
   output "card" {
+    description = "The updated card details."
     value       = step.http.update_card.response_body
-    description = "The card object."
   }
 }

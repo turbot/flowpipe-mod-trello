@@ -14,3 +14,9 @@ locals {
     close            = "closed"
   }
 }
+
+# Common descriptions
+locals {
+  token_param_description   = "The personal token to authenticate to the Trello APIs."
+  api_key_param_description = "The personal api key to authenticate to the Trello APIs."
+}

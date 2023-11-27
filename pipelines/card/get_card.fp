@@ -1,18 +1,17 @@
-// usage: flowpipe pipeline run get_card --pipeline-arg card_id="CARD_ID"
 pipeline "get_card" {
-  title       = "Get a Card"
-  description = "Get information about a Trello card."
+  title       = "Get Card"
+  description = "Get a card by its ID."
 
   param "api_key" {
     type        = string
+    description = local.api_key_param_description
     default     = var.api_key
-    description = "The Trello API key."
   }
 
   param "token" {
     type        = string
+    description = local.token_param_description
     default     = var.token
-    description = "The Trello token."
   }
 
   param "card_id" {
@@ -21,13 +20,12 @@ pipeline "get_card" {
   }
 
   step "http" "get_card" {
-    title  = "Get a Card"
     method = "get"
     url    = "https://api.trello.com/1/cards/${param.card_id}?key=${param.api_key}&token=${param.token}"
   }
 
   output "card" {
+    description = "The card details."
     value       = step.http.get_card.response_body
-    description = "The card object."
   }
 }

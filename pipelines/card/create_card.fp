@@ -1,18 +1,17 @@
-// usage: flowpipe pipeline run create_card --pipeline-arg list_id="LIST_ID" --pipeline-arg card_name="CARD_NAME"
 pipeline "create_card" {
-  title       = "Create a Card"
+  title       = "Create Card"
   description = "Create a new card."
 
   param "api_key" {
     type        = string
+    description = local.api_key_param_description
     default     = var.api_key
-    description = "The Trello API key."
   }
 
   param "token" {
     type        = string
+    description = local.token_param_description
     default     = var.token
-    description = "The Trello token."
   }
 
   param "list_id" {
@@ -22,19 +21,18 @@ pipeline "create_card" {
 
   param "card_name" {
     type        = string
-    optional    = true
     description = "The name for the card."
+    optional    = true
   }
 
   step "http" "create_card" {
-    title  = "Create a Card"
     method = "post"
-    url = join("&", concat(["https://api.trello.com/1/cards?"],
+    url = join("&", concat(["https://api.trello.com/1/cards?"]
     [for name, value in param : "${local.create_card_query_params[name]}=${urlencode(value)}" if contains(keys(local.create_card_query_params), name) && value != null]))
   }
 
-  output " card " {
+  output "card" {
+    description = "The new card details."
     value       = step.http.create_card.response_body
-    description = " The card object."
   }
 }

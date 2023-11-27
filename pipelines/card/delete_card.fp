@@ -1,18 +1,17 @@
-// usage: flowpipe pipeline run delete_card --pipeline-arg card_id="CARD_ID"
 pipeline "delete_card" {
-  title       = "Delete a Card"
+  title       = "Delete Card"
   description = "Delete a card."
 
   param "api_key" {
     type        = string
+    description = local.api_key_param_description
     default     = var.api_key
-    description = "The Trello API key."
   }
 
   param "token" {
     type        = string
+    description = local.token_param_description
     default     = var.token
-    description = "The Trello token."
   }
 
   param "card_id" {
@@ -21,7 +20,6 @@ pipeline "delete_card" {
   }
 
   step "http" "delete_card" {
-    title  = "Delete a Card"
     method = "delete"
     url    = "https://api.trello.com/1/cards/${param.card_id}?key=${param.api_key}&token=${param.token}"
   }
