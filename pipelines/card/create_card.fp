@@ -27,7 +27,7 @@ pipeline "create_card" {
 
   step "http" "create_card" {
     method = "post"
-    url = join("&", concat(["https://api.trello.com/1/cards?"]
+    url = join("&", concat(["https://api.trello.com/1/cards?"],
     [for name, value in param : "${local.create_card_query_params[name]}=${urlencode(value)}" if contains(keys(local.create_card_query_params), name) && value != null]))
   }
 
