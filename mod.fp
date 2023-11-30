@@ -7,7 +7,7 @@ mod "trello" {
   categories    = ["trello"]
 
   opengraph {
-    title       = "Trello"
+    title       = "Trello Mod for Flowpipe"
     description = "Run pipelines to supercharge your Trello workflows using Flowpipe."
     image       = "/images/flowpipe/mods/turbot/trello-social-graphic.png"
   }
