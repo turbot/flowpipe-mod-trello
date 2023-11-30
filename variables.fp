@@ -5,5 +5,5 @@ variable "token" {
 
 variable "api_key" {
   type        = string
-  description = "The personal api key to authenticate to the Trello APIs."
+  description = "The personal API key to authenticate to the Trello APIs."
 }
