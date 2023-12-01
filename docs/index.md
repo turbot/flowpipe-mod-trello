@@ -1,3 +1,7 @@
+---
+repository: "https://github.com/turbot/flowpipe-mod-trello"
+---
+
 # Trello Mod for Flowpipe
 
 A collection of [Flowpipe](https://flowpipe.io) pipelines that can be used to:
@@ -5,8 +9,6 @@ A collection of [Flowpipe](https://flowpipe.io) pipelines that can be used to:
 - Get Lists
 - Create Cards
 - And more!
-
-<!-- ![image](https://github.com/turbot/flowpipe-mod-trello/blob/main/docs/images/flowpipe_test_run.png?raw=true) -->
 
 ## Documentation
 
