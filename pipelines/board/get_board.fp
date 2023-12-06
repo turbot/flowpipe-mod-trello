@@ -2,16 +2,10 @@ pipeline "get_board" {
   title       = "Get Board"
   description = "Request a single board."
 
-  param "api_key" {
+  param "cred" {
     type        = string
-    description = local.api_key_param_description
-    default     = var.api_key
-  }
-
-  param "token" {
-    type        = string
-    description = local.token_param_description
-    default     = var.token
+    description = local.cred_param_description
+    default     = var.default_cred
   }
 
   param "board_id" {
@@ -21,7 +15,7 @@ pipeline "get_board" {
 
   step "http" "get_board" {
     method = "get"
-    url    = "https://api.trello.com/1/boards/${param.board_id}?key=${param.api_key}&token=${param.token}"
+    url    = "https://api.trello.com/1/boards/${param.board_id}?key=${credential.trello[param.cred].api_key}&token=${credential.trello[param.cred].token}"
   }
 
   output "board" {

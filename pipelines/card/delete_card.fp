@@ -2,16 +2,10 @@ pipeline "delete_card" {
   title       = "Delete Card"
   description = "Delete a card."
 
-  param "api_key" {
+  param "cred" {
     type        = string
-    description = local.api_key_param_description
-    default     = var.api_key
-  }
-
-  param "token" {
-    type        = string
-    description = local.token_param_description
-    default     = var.token
+    description = local.cred_param_description
+    default     = var.default_cred
   }
 
   param "card_id" {
@@ -21,6 +15,6 @@ pipeline "delete_card" {
 
   step "http" "delete_card" {
     method = "delete"
-    url    = "https://api.trello.com/1/cards/${param.card_id}?key=${param.api_key}&token=${param.token}"
+    url    = "https://api.trello.com/1/cards/${param.card_id}?key=${credential.trello[param.cred].api_key}&token=${credential.trello[param.cred].token}"
   }
 }

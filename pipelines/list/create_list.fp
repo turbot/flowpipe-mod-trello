@@ -2,16 +2,10 @@ pipeline "create_list" {
   title       = "Create List"
   description = "Create a new list on a board."
 
-  param "api_key" {
+  param "cred" {
     type        = string
-    description = local.api_key_param_description
-    default     = var.api_key
-  }
-
-  param "token" {
-    type        = string
-    description = local.token_param_description
-    default     = var.token
+    description = local.cred_param_description
+    default     = var.default_cred
   }
 
   param "board_id" {
@@ -26,7 +20,7 @@ pipeline "create_list" {
 
   step "http" "create_list" {
     method = "post"
-    url    = "https://api.trello.com/1/lists?name=${urlencode(param.list_name)}&idBoard=${urlencode(param.board_id)}&key=${param.api_key}&token=${param.token}"
+    url    = "https://api.trello.com/1/lists?name=${urlencode(param.list_name)}&idBoard=${urlencode(param.board_id)}&key=${credential.trello[param.cred].api_key}&token=${credential.trello[param.cred].token}"
   }
 
   output "list" {

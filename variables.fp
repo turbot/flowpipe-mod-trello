@@ -1,9 +1,5 @@
-variable "token" {
+variable "default_cred" {
   type        = string
-  description = "The personal token to authenticate to the Trello APIs."
-}
-
-variable "api_key" {
-  type        = string
-  description = "The personal API key to authenticate to the Trello APIs."
+  description = "Name for the default credentials."
+  default     = "default"
 }

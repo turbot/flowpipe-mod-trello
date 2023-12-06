@@ -2,16 +2,10 @@ pipeline "create_card" {
   title       = "Create Card"
   description = "Create a new card."
 
-  param "api_key" {
+  param "cred" {
     type        = string
-    description = local.api_key_param_description
-    default     = var.api_key
-  }
-
-  param "token" {
-    type        = string
-    description = local.token_param_description
-    default     = var.token
+    description = local.cred_param_description
+    default     = var.default_cred
   }
 
   param "list_id" {
@@ -27,8 +21,10 @@ pipeline "create_card" {
 
   step "http" "create_card" {
     method = "post"
-    url = join("&", concat(["https://api.trello.com/1/cards?"],
-    [for name, value in param : "${local.create_card_query_params[name]}=${urlencode(value)}" if contains(keys(local.create_card_query_params), name) && value != null]))
+    url = join("&", concat(
+      ["https://api.trello.com/1/cards?key=${credential.trello[param.cred].api_key}&token=${credential.trello[param.cred].token}"],
+      [for name, value in param : "${local.create_card_query_params[name]}=${urlencode(value)}" if contains(keys(local.create_card_query_params), name) && value != null]
+    ))
   }
 
   output "card" {
