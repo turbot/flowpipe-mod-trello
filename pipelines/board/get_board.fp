@@ -2,6 +2,10 @@ pipeline "get_board" {
   title       = "Get Board"
   description = "Request a single board."
 
+  tags = {
+    type = "featured"
+  }
+
   param "cred" {
     type        = string
     description = local.cred_param_description

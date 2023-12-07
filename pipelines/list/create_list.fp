@@ -2,6 +2,10 @@ pipeline "create_list" {
   title       = "Create List"
   description = "Create a new list on a board."
 
+  tags = {
+    type = "featured"
+  }
+
   param "cred" {
     type        = string
     description = local.cred_param_description

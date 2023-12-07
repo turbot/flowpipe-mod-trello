@@ -2,6 +2,10 @@ pipeline "create_card" {
   title       = "Create Card"
   description = "Create a new card."
 
+  tags = {
+    type = "featured"
+  }
+
   param "cred" {
     type        = string
     description = local.cred_param_description
