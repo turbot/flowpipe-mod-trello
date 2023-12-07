@@ -5,7 +5,7 @@ pipeline "update_card" {
   param "cred" {
     type        = string
     description = local.cred_param_description
-    default     = var.default_cred
+    default     = "default"
   }
 
   param "card_id" {
