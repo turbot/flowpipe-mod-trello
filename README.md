@@ -67,13 +67,13 @@ flowpipe pipeline run get_board
 You can pass in pipeline arguments as well:
 
 ```sh
-flowpipe pipeline run get_board --arg board_id='abuy218gyb'
+flowpipe pipeline run get_board --arg board_id=abuy218gyb
 ```
 
 To use a specific `credential`, specify the `cred` pipeline argument:
 
 ```sh
-flowpipe pipeline run get_board --arg board_id='abuy218gyb' --arg cred=trello_cred
+flowpipe pipeline run get_board --arg board_id=abuy218gyb --arg cred=trello_cred
 ```
 
 For more examples on how you can run pipelines, please see [Run Pipelines](https://flowpipe.io/docs/run/pipelines).
