@@ -2,7 +2,7 @@ mod "trello" {
   title         = "Trello"
   description   = "Run pipelines to supercharge your Trello workflows using Flowpipe."
   color         = "#217EF9"
-  documentation = file("./docs/index.md")
+  documentation = file("./README.md")
   icon          = "/images/mods/turbot/trello.svg"
   categories    = ["productivity"]
 
