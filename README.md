@@ -103,7 +103,7 @@ flowpipe pipeline run get_board --arg board_id=abuy218gyb
 To use a specific `credential`, specify the `cred` pipeline argument:
 
 ```sh
-flowpipe pipeline run get_board --arg board_id=abuy218gyb --arg cred=trello_cred
+flowpipe pipeline run get_board --arg board_id=abuy218gyb --arg cred=trello_profile
 ```
 
 ## Open Source & Contributing
