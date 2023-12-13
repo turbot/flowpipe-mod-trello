@@ -17,13 +17,6 @@ brew tap turbot/tap
 brew install flowpipe
 ```
 
-Clone:
-
-```sh
-git clone https://github.com/turbot/flowpipe-mod-trello.git
-cd flowpipe-mod-trello
-```
-
 ### Credentials
 
 By default, the following environment variables will be used for authentication:
@@ -48,7 +41,52 @@ For more information on credentials in Flowpipe, please see [Managing Credential
 
 ### Usage
 
-Start your server to get started:
+[Initialize a mod](https://flowpipe.io/docs/build/index#initializing-a-mod):
+
+```sh
+mkdir my_mod
+cd my_mod
+flowpipe mod init
+```
+
+[Install the Trello mod](https://flowpipe.io/docs/build/mod-dependencies#mod-dependencies) as a dependency:
+
+```sh
+flowpipe mod install github.com/turbot/flowpipe-mod-trello
+```
+
+[Use the dependency](https://flowpipe.io/docs/build/write-pipelines/index) in a pipeline step:
+
+```sh
+vi my_pipeline.fp
+```
+
+```hcl
+pipeline "my_pipeline" {
+
+  step "pipeline" "get_board" {
+    pipeline = trello.pipeline.get_board
+    args = {
+      board_id = "abuy218gyb"
+    }
+  }
+}
+```
+
+[Run the pipeline](https://flowpipe.io/docs/run/pipelines):
+
+```sh
+flowpipe pipeline run my_pipeline
+```
+
+### Developing
+
+Clone:
+
+```sh
+git clone https://github.com/turbot/flowpipe-mod-trello.git
+cd flowpipe-mod-trello
+```
 
 List pipelines:
 
@@ -59,12 +97,6 @@ flowpipe pipeline list
 Run a pipeline:
 
 ```sh
-flowpipe pipeline run get_board
-```
-
-You can pass in pipeline arguments as well:
-
-```sh
 flowpipe pipeline run get_board --arg board_id=abuy218gyb
 ```
 
@@ -73,8 +105,6 @@ To use a specific `credential`, specify the `cred` pipeline argument:
 ```sh
 flowpipe pipeline run get_board --arg board_id=abuy218gyb --arg cred=trello_cred
 ```
-
-For more examples on how you can run pipelines, please see [Run Pipelines](https://flowpipe.io/docs/run/pipelines).
 
 ## Open Source & Contributing
 
