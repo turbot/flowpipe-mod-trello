@@ -2,16 +2,10 @@ pipeline "update_card" {
   title       = "Update Card"
   description = "Update a card."
 
-  param "api_key" {
+  param "cred" {
     type        = string
-    description = local.api_key_param_description
-    default     = var.api_key
-  }
-
-  param "token" {
-    type        = string
-    description = local.token_param_description
-    default     = var.token
+    description = local.cred_param_description
+    default     = "default"
   }
 
   param "card_id" {
@@ -38,8 +32,9 @@ pipeline "update_card" {
   }
 
   step "http" "update_card" {
-    method       = "put"
-    url          = "https://api.trello.com/1/cards/${param.card_id}?key=${param.api_key}&token=${param.token}"
+    method = "put"
+    url    = "https://api.trello.com/1/cards/${param.card_id}?key=${credential.trello[param.cred].api_key}&token=${credential.trello[param.cred].token}"
+
     request_body = jsonencode({ for name, value in param : local.update_card_query_params[name] => value if contains(keys(local.update_card_query_params), name) && value != null })
   }
 

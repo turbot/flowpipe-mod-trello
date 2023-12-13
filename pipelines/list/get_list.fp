@@ -2,16 +2,10 @@ pipeline "get_list" {
   title       = "Get List"
   description = "Get information about a list."
 
-  param "api_key" {
+  param "cred" {
     type        = string
-    description = local.api_key_param_description
-    default     = var.api_key
-  }
-
-  param "token" {
-    type        = string
-    description = local.token_param_description
-    default     = var.token
+    description = local.cred_param_description
+    default     = "default"
   }
 
   param "list_id" {
@@ -21,7 +15,7 @@ pipeline "get_list" {
 
   step "http" "get_list" {
     method = "get"
-    url    = "https://api.trello.com/1/lists/${param.list_id}?key=${param.api_key}&token=${param.token}"
+    url    = "https://api.trello.com/1/lists/${param.list_id}?key=${credential.trello[param.cred].api_key}&token=${credential.trello[param.cred].token}"
   }
 
   output "list" {
