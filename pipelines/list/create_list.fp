@@ -6,10 +6,10 @@ pipeline "create_list" {
     type = "featured"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.trello
+    description = local.conn_param_description
+    default     = connection.trello.default
   }
 
   param "board_id" {
@@ -24,7 +24,7 @@ pipeline "create_list" {
 
   step "http" "create_list" {
     method = "post"
-    url    = "https://api.trello.com/1/lists?name=${urlencode(param.list_name)}&idBoard=${urlencode(param.board_id)}&key=${credential.trello[param.cred].api_key}&token=${credential.trello[param.cred].token}"
+    url    = "https://api.trello.com/1/lists?name=${urlencode(param.list_name)}&idBoard=${urlencode(param.board_id)}&key=${param.conn.api_key}&token=${param.conn.token}"
   }
 
   output "list" {

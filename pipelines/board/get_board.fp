@@ -6,10 +6,10 @@ pipeline "get_board" {
     type = "featured"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.trello
+    description = local.conn_param_description
+    default     = connection.trello.default
   }
 
   param "board_id" {
@@ -19,7 +19,7 @@ pipeline "get_board" {
 
   step "http" "get_board" {
     method = "get"
-    url    = "https://api.trello.com/1/boards/${param.board_id}?key=${credential.trello[param.cred].api_key}&token=${credential.trello[param.cred].token}"
+    url    = "https://api.trello.com/1/boards/${param.board_id}?key=${param.conn.api_key}&token=${param.conn.token}"
   }
 
   output "board" {
