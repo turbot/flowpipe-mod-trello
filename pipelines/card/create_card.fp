@@ -3,7 +3,7 @@ pipeline "create_card" {
   description = "Create a new card."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

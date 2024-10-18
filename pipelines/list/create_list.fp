@@ -3,7 +3,7 @@ pipeline "create_list" {
   description = "Create a new list on a board."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

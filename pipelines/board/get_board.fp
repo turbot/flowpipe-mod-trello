@@ -3,7 +3,7 @@ pipeline "get_board" {
   description = "Request a single board."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {
