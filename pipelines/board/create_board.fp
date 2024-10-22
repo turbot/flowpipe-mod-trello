@@ -2,10 +2,10 @@ pipeline "create_board" {
   title       = "Create Board"
   description = "Create a new board."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.trello
+    description = local.conn_param_description
+    default     = connection.trello.default
   }
 
   param "board_name" {
@@ -15,7 +15,7 @@ pipeline "create_board" {
 
   step "http" "create_board" {
     method = "post"
-    url    = "https://api.trello.com/1/boards?name=${urlencode(param.board_name)}&key=${credential.trello[param.cred].api_key}&token=${credential.trello[param.cred].token}"
+    url    = "https://api.trello.com/1/boards?name=${urlencode(param.board_name)}&key=${param.conn.api_key}&token=${param.conn.token}"
   }
 
   output "board" {
